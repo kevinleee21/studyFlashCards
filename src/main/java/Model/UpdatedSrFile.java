@@ -1,6 +1,4 @@
 package Model;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -11,15 +9,15 @@ public class UpdatedSrFile {
   /**
    * Counter for the number of conversions from hard to easy.
    */
-  public static int hardToeasy;
+  private int hardToeasy;
   /**
    * Counter for the number of conversions from easy to hard.
    */
-  public static int easyTohard;
+  private int easyTohard;
 
   public UpdatedSrFile() {
-    hardToeasy = 0;
-    easyTohard = 0;
+    this.hardToeasy = 0;
+    this.easyTohard = 0;
   }
 
   /**
@@ -43,5 +41,13 @@ public class UpdatedSrFile {
         easyTohard++;
       }
     }
+  }
+
+  public int getEasyTohard() {
+    return easyTohard;
+  }
+
+  public int getHardToeasy() {
+    return hardToeasy;
   }
 }

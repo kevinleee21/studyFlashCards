@@ -1,4 +1,4 @@
-package cs3500.pa02;
+package Model;
 
 import java.io.File;
 import java.util.Comparator;

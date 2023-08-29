@@ -16,13 +16,14 @@ public class Result {
    * @param sorted   The sorted list of questions.
    */
   public static void displayFinal(Appendable output, int answered, int hard, int easy, ArrayList<String> sorted)
-      throws IOException {
-    output.append("Good Job!").append(System.lineSeparator());
-    output.append("You answered ").append(String.valueOf(answered)).append(" questions").append(System.lineSeparator());
-    output.append(String.valueOf(hard)).append(" questions went from hard to easy").append(System.lineSeparator());
-    output.append(String.valueOf(easy)).append(" questions went from easy to hard").append(System.lineSeparator());
-    output.append(String.valueOf(easyCount(sorted))).append(" Easy Questions").append(System.lineSeparator());
-    output.append(String.valueOf(hardCount(sorted))).append(" Hard Questions").append(System.lineSeparator());
+          throws IOException {
+    String ln = System.lineSeparator();
+    output.append("Good Job!").append(ln);
+    output.append("You answered ").append(String.valueOf(answered)).append(" questions").append(ln);
+    output.append(String.valueOf(hard)).append(" questions went from hard to easy").append(ln);
+    output.append(String.valueOf(easy)).append(" questions went from easy to hard").append(ln);
+    output.append(String.valueOf(easyCount(sorted))).append(" Easy Questions").append(ln);
+    output.append(String.valueOf(hardCount(sorted))).append(" Hard Questions").append(ln);
   }
 
 

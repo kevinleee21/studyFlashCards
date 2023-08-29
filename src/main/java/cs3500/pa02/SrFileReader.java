@@ -15,7 +15,7 @@ public class SrFileReader {
    * @param sortedFiles The list of sorted .sr files.
    * @return An ArrayList representing the organized guide.
    */
-  public static ArrayList<String> convertFile(ArrayList<File> sortedFiles) {
+  public static ArrayList<String> convertFiles(ArrayList<File> sortedFiles) {
     ArrayList<String> organizedGuide = new ArrayList<>();
 
     for (File file: sortedFiles) {

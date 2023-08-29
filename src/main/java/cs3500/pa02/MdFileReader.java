@@ -8,14 +8,14 @@ import java.util.Scanner;
 /**
  * Represents a student's study-guide
  */
-public class StudyGuide {
+public class MdFileReader {
     /**
      * initializes the list of strings that will later have all the organized string contents from
      * each markdown file.
      */
     private ArrayList<String> organizedGuide;
 
-    StudyGuide() {
+    MdFileReader() {
         this.organizedGuide = new ArrayList<>();
     }
 

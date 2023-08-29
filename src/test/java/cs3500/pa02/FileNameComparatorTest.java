@@ -1,5 +1,6 @@
 package cs3500.pa02;
 
+import Model.FileNameComparator;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
