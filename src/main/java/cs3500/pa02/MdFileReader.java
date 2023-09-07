@@ -8,16 +8,7 @@ import java.util.Scanner;
 /**
  * Represents a student's study-guide
  */
-public class MdFileReader {
-    /**
-     * initializes the list of strings that will later have all the organized string contents from
-     * each markdown file.
-     */
-    private ArrayList<String> organizedGuide;
-
-    MdFileReader() {
-        this.organizedGuide = new ArrayList<>();
-    }
+public class MdFileReader extends Reader {
 
     /**
      * Organizes a list of student notes and makes sure the headings are properly ordered and the phrases inside
@@ -26,33 +17,23 @@ public class MdFileReader {
      * @param sortedFiles all markdown files sorted in the preferred order
      * @return a list of these files with their headings and highlighted organized
      */
-    public static ArrayList<String> convertFile(ArrayList<File> sortedFiles) {
+    @Override
+    public ArrayList<String> convertFiles(ArrayList<File> sortedFiles) {
         ArrayList<String> organizedGuide = new ArrayList<>();
 
         for (File file : sortedFiles) {
             try {
+                // read the file
                 Scanner scanner = new Scanner(file);
                 StringBuilder bracketedStatement = new StringBuilder();
                 while (scanner.hasNextLine()) {
+                    // text read from file
                     String line = scanner.nextLine();
+                    // check if the text has property for studyguide i.e. [[, ]], :::
                     if (line.contains("[[") && line.contains("]]") && !line.contains(":::")) {
                         organizedGuide.add("- " + (line.substring(line.indexOf("[[") + 2, line.indexOf("]]"))));
                     } else if (line.contains("[[") && !line.contains("]]") && !line.contains(":::")) {
-                        bracketedStatement.append("- ").append(line.substring(line.indexOf("[[") + 2));
-                        boolean endLine = false;
-                        while (scanner.hasNextLine() && !endLine) {
-                            line = scanner.nextLine();
-                            if (line.contains("]]") && !line.contains(":::")) {
-                                bracketedStatement.append("- ").append(line, 0, line.indexOf("]]"));
-                                endLine = true;
-                            } else if (line.contains("]]") && line.contains(":::")){
-                                bracketedStatement.setLength(0);
-                            } else {
-                                bracketedStatement.append("- ").append(line);
-                            }
-                        }
-                        organizedGuide.add(bracketedStatement.toString().trim());
-                        bracketedStatement.setLength(0);
+                        finishLine(line, bracketedStatement, scanner, organizedGuide);
                     } else if (line.startsWith("#")) {
                         organizedGuide.add(line);
                     }
@@ -64,5 +45,31 @@ public class MdFileReader {
             }
         }
         return organizedGuide;
+    }
+
+    /**
+     * when bracketed statement takes up more than one line in notes
+     * @param line scanner read text line
+     * @param bracketedStatement string builder for final statement
+     * @param scanner scan the file
+     */
+    @Override
+    public void finishLine(String line, StringBuilder bracketedStatement, Scanner scanner, ArrayList<String> organizedGuide) {
+        bracketedStatement.append("- ").append(line.substring(line.indexOf("[[") + 2));
+        boolean endLine = false;
+        while (scanner.hasNextLine() && !endLine) {
+            line = scanner.nextLine();
+            if (line.contains("]]") && !line.contains(":::")) {
+                bracketedStatement.append("- ").append(line, 0, line.indexOf("]]"));
+                endLine = true;
+            } else if (line.contains("]]") && line.contains(":::")) {
+                // clear the text as it doesn't belong in .md file
+                bracketedStatement.setLength(0);
+            } else {
+                bracketedStatement.append("- ").append(line);
+            }
+        }
+        organizedGuide.add(bracketedStatement.toString().trim());
+        bracketedStatement.setLength(0);
     }
 }

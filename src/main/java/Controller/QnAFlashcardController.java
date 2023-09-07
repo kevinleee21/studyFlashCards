@@ -1,6 +1,4 @@
 package Controller;
-
-
 import Model.QuestionSortComparator;
 import Model.UpdatedSrFile;
 import View.Result;
@@ -48,7 +46,7 @@ public class QnAFlashcardController implements Controller {
       }
       Result.displayFinal(output, numberofQues, updated.getHardToeasy(), updated.getEasyTohard(), sorted);
       SrFileWriter writer = new SrFileWriter();
-      writer.writeSrFile(desiredFile, sorted);
+      writer.writeFile(desiredFile, sorted);
     }
   }
 
@@ -132,7 +130,7 @@ public class QnAFlashcardController implements Controller {
         break;
       case EXIT:
         Result.displayFinal(output, index, updated.getHardToeasy(), updated.getEasyTohard(), sorted);
-        writer.writeSrFile(desiredFile, sorted);
+        writer.writeFile(desiredFile, sorted);
         System.exit(0);
         break;
       default:

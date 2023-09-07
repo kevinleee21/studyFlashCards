@@ -50,13 +50,15 @@ public class MarkdownSRFileController implements Controller {
         /**
          * Write out the study guide and the question bank
          */
-        ArrayList<String> organized = MdFileReader.convertFile(markdownFiles);
-        ArrayList<String> bank = SrFileReader.convertFiles(markdownFiles);
+        MdFileReader md = new MdFileReader();
+        SrFileReader sr = new SrFileReader();
+        ArrayList<String> organized = md.convertFiles(markdownFiles);
+        ArrayList<String> bank = sr.convertFiles(markdownFiles);
         File outputFile = new File(outputFilePath);
         MdFileWriter outputMd = new MdFileWriter();
         SrFileWriter outputSr = new SrFileWriter();
         outputMd.writeFile(outputFile, organized);
-        outputSr.writeSrFile(outputFile, bank);
+        outputSr.writeFile(outputFile, bank);
     }
 
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * The SrFileWriter class provides methods for writing contents to an .sr file.
  */
-public class SrFileWriter {
+public class SrFileWriter extends Writer {
   /**
    * Writes the contents to the specified .sr file.
    *
@@ -20,13 +20,12 @@ public class SrFileWriter {
    * @param contents The contents to write to the file.
    * @throws RuntimeException If an error occurs while writing to the file.
    */
-  public FileWriter writeSrFile(File file, ArrayList<String> contents) {
+  @Override
+  public FileWriter writeFile(File file, ArrayList<String> contents) {
     String filePath = file.getPath();
     if (!filePath.toLowerCase().endsWith(".sr")) {
       filePath += ".sr";
     }
-
-    Path path = Paths.get(filePath);
 
     try {
       FileWriter fileWriter = new FileWriter(filePath);

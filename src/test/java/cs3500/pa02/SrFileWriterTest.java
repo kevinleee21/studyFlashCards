@@ -26,7 +26,7 @@ class SrFileWriterTest {
     SrFileWriter srFileWriter = new SrFileWriter();
 
     // Act
-    FileWriter fileWriter = srFileWriter.writeSrFile(file, contents);
+    FileWriter fileWriter = srFileWriter.writeFile(file, contents);
 
     // Assert
     assertNotNull(fileWriter, "The FileWriter object should not be null.");
@@ -48,7 +48,7 @@ class SrFileWriterTest {
     SrFileWriter srFileWriter = new SrFileWriter();
 
     // Act
-    FileWriter fileWriter = srFileWriter.writeSrFile(file, contents);
+    FileWriter fileWriter = srFileWriter.writeFile(file, contents);
 
     // Assert
     assertNotNull(fileWriter, "The FileWriter object should not be null.");
@@ -71,7 +71,7 @@ class SrFileWriterTest {
     SrFileWriter srFileWriter = new SrFileWriter();
 
     // Act
-    FileWriter fileWriter = srFileWriter.writeSrFile(file, contents);
+    FileWriter fileWriter = srFileWriter.writeFile(file, contents);
 
     // Assert
     assertNotNull(fileWriter, "The FileWriter object should not be null.");
