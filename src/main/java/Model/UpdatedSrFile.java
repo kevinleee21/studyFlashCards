@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * The UpdatedSrFile class manages the updating of question difficulty in the study session.
  * It keeps track of the number of conversions from hard to easy and from easy to hard.
  */
-public class Update7dSrFile {
+public class UpdatedSrFile {
   /**
    * Counter for the number of conversions from hard to easy.
    */
@@ -43,10 +43,20 @@ public class Update7dSrFile {
     }
   }
 
+  /**
+   * Getter for the easy to hard count
+   * @return the count of questions that
+   * turned from easy to hard
+   */
   public int getEasyTohard() {
     return easyTohard;
   }
 
+  /**
+   * Getter for the hard to easy count
+   * @return the count of questions that
+   * turned from hard to easy
+   */
   public int getHardToeasy() {
     return hardToeasy;
   }

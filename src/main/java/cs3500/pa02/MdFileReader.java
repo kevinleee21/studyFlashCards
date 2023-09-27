@@ -60,13 +60,13 @@ public class MdFileReader extends Reader {
         while (scanner.hasNextLine() && !endLine) {
             line = scanner.nextLine();
             if (line.contains("]]") && !line.contains(":::")) {
-                bracketedStatement.append("- ").append(line, 0, line.indexOf("]]"));
+                bracketedStatement.append(line, 0, line.indexOf("]]"));
                 endLine = true;
             } else if (line.contains("]]") && line.contains(":::")) {
                 // clear the text as it doesn't belong in .md file
                 bracketedStatement.setLength(0);
             } else {
-                bracketedStatement.append("- ").append(line);
+                bracketedStatement.append(line);
             }
         }
         organizedGuide.add(bracketedStatement.toString().trim());

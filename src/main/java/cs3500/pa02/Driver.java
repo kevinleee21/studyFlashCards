@@ -1,5 +1,5 @@
 package cs3500.pa02;
-import Controller.QnAFlashcardController;
+import Controller.FlashcardController;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -15,18 +15,20 @@ public class Driver {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
+        // if there are no command line arguements then run thd FlashCard application
         if (args.length == 0) {
-            QnAFlashcardController controller = new QnAFlashcardController(new InputStreamReader(System.in), System.out);
+            FlashcardController controller = new FlashcardController(new InputStreamReader(System.in), System.out);
             controller.run();
 
         } else if (args.length == 3) {
-
+            // if there are 3 command line args with a
+            // notesRootPath, orderingFlag, outputFilePath then run the Markdown File application
             String notesRootPath = args[0];
             String orderingFlag = args[1];
             String outputFilePath = args[2];
 
-            MarkdownSRFileController controllerQanA =
-                    new MarkdownSRFileController(notesRootPath, orderingFlag, outputFilePath);
+            FileController controllerQanA =
+                    new FileController(notesRootPath, orderingFlag, outputFilePath);
 
             controllerQanA.run();
         }

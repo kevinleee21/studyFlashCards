@@ -1,6 +1,4 @@
-
 package cs3500.pa02;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,8 +10,7 @@ import java.util.ArrayList;
 public class MdFileWriter extends Writer {
 
     /**
-     * writes everything to a file path in order to create the final studyguide with everything we
-     * want
+     * writes everything to a file path in order to create the final studyguide with everything we want
      *
      * @param file the file that the content will be written to
      * @param contents a list of all the contents that needs to be written to the output file
@@ -30,8 +27,9 @@ public class MdFileWriter extends Writer {
             for (String str : contents) {
                 if (str.startsWith("#")) {
                     fileWriter.append(System.lineSeparator());
+                } else {
+                    fileWriter.append(str).append(System.lineSeparator());
                 }
-                fileWriter.append(str).append(System.lineSeparator());
             }
 
             fileWriter.close();

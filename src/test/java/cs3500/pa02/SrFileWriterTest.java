@@ -29,9 +29,9 @@ class SrFileWriterTest {
     FileWriter fileWriter = srFileWriter.writeFile(file, contents);
 
     // Assert
-    assertNotNull(fileWriter, "The FileWriter object should not be null.");
-    assertTrue(file.exists(), "The .sr file should be created.");
-    assertEquals(2, countLines(file), "The number of lines in the file should match the number of contents.");
+    assertNotNull(fileWriter);
+    assertTrue(file.exists());
+    assertEquals(2, countLines(file));
   }
 
   /**

@@ -10,18 +10,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
-public class MarkdownSRFileController implements Controller {
+/**
+ * Represents the creation of the Markdown and SR files
+ * after the user selected a specific notesRootPath, orderingFlag, and outputFilePath
+ *
+ */
+public class FileController implements Controller {
 
     private String rootPath;
     private String orderingFlag;
     private String outputFilePath;
 
-    public MarkdownSRFileController(String rootPath, String orderingFlag, String outputFilePath) {
+    public FileController(String rootPath, String orderingFlag, String outputFilePath) {
         this.rootPath = rootPath;
         this.orderingFlag = orderingFlag;
         this.outputFilePath = outputFilePath;
     }
 
+    /**
+     *
+     * @throws IOException
+     */
     @Override
     public void run() throws IOException {
         Path directory = Path.of(rootPath);

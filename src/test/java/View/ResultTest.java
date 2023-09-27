@@ -1,80 +1,44 @@
-//package View;
-//
-//import org.junit.jupiter.api.Test;
-//import java.io.IOException;
-//import java.util.ArrayList;
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.mockito.Mockito.*;
-//
-///**
-// * Test class for Result.
-// */
-//class ResultTest {
-//
-//  /**
-//   * Tests the displayFinal method to ensure correct display of final results.
-//   */
-//  @Test
-//  void displayFinal_shouldDisplayCorrectResults() throws IOException {
-//    // Arrange
-//    Appendable output = mock(Appendable.class);
-//    int answered = 10;
-//    int hard = 3;
-//    int easy = 2;
-//    ArrayList<String> sorted = new ArrayList<>();
-//    sorted.add("***Easy Question");
-//    sorted.add("***Hard Question");
-//    sorted.add("***Easy Question");
-//    sorted.add("***Hard Question");
-//
-//    // Act
-//    Result.displayFinal(output, answered, hard, easy, sorted);
-//
-//    // Assert
-//    verify(output, times(5)).append(anyString()); // Verifies append method is called 5 times
-//    verify(output).append("Good Job!").append(System.lineSeparator());
-//    verify(output).append("You answered 10 questions").append(System.lineSeparator());
-//    verify(output).append("3 questions went from hard to easy").append(System.lineSeparator());
-//    verify(output).append("2 questions went from easy to hard").append(System.lineSeparator());
-//    verify(output).append("2 Easy Questions").append(System.lineSeparator());
-//    verify(output).append("2 Hard Questions").append(System.lineSeparator());
-//  }
-//
-//  /**
-//   * Tests the easyCount method to ensure correct counting of easy questions.
-//   */
-//  @Test
-//  void easyCount_shouldReturnCorrectCount() {
-//    // Arrange
-//    ArrayList<String> sorted = new ArrayList<>();
-//    sorted.add("***Easy Question");
-//    sorted.add("***Hard Question");
-//    sorted.add("***Easy Question");
-//    sorted.add("***Easy Question");
-//
-//    // Act
-//    int count = Result.easyCount(sorted);
-//
-//    // Assert
-//    assertEquals(3, count, "The count of easy questions should be 3.");
-//  }
-//
-//  /**
-//   * Tests the hardCount method to ensure correct counting of hard questions.
-//   */
-//  @Test
-//  void hardCount_shouldReturnCorrectCount() {
-//    // Arrange
-//    ArrayList<String> sorted = new ArrayList<>();
-//    sorted.add("***Easy Question");
-//    sorted.add("***Hard Question");
-//    sorted.add("***Hard Question");
-//    sorted.add("***Hard Question");
-//
-//    // Act
-//    int count = Result.hardCount(sorted);
-//
-//    // Assert
-//    assertEquals(3, count, "The count of hard questions should be 3.");
-//  }
-//}
+package View;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import static junit.framework.TestCase.assertEquals;
+
+class ResultTest {
+    private Appendable appendable;
+    private static final StringBuilder VALUE = new StringBuilder();
+    private ArrayList<String> questions = new ArrayList<>();
+
+    @BeforeEach
+    public void setUp() {
+        this.appendable = new StringBuilder();
+        String ln = System.lineSeparator();
+        VALUE.append("Good Job!").append(ln);;
+        VALUE.append("You answered 1 questions").append(ln);
+        VALUE.append("0 questions went from hard to easy").append(ln);
+        VALUE.append("0 questions went from easy to hard").append(ln);
+        VALUE.append("2 Easy Questions").append(ln);
+        VALUE.append("1 Hard Questions").append(ln);
+
+        questions.add("Which continent is known as the \"Roof of the World\"?:::Asia.***Easy");
+        questions.add("Which country is located in both Europe and Asia?:::Russia.***Easy");
+        questions.add("Which city is located on two continents?::: Istanbul, Turkey." +
+                " It is located on both Europe and Asia.***Hard");
+    }
+
+    @Test
+    void displayFinal() throws IOException {
+        // check empty StringBuilder
+        assertEquals("", this.appendable.toString());
+
+        // write to it
+        Result.displayFinal(appendable, 1, 0, 0, questions);
+
+        // check only that value appears in the StringBuilder
+        Assertions.assertEquals(VALUE.toString(), this.appendable.toString());
+
+    }
+}

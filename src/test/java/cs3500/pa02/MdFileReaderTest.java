@@ -10,13 +10,10 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import static java.io.File.createTempFile;
 import static org.junit.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.internal.matchers.text.ValuePrinter.print;
 
-class SrFileReaderTest {
+class MdFileReaderTest {
 
     @Test
     void convertFiles() throws IOException {
@@ -27,38 +24,43 @@ class SrFileReaderTest {
         List<String> content1 = Arrays.asList("- [[An **array** is a collection of variables of the same type]], referred to",
                 "  by a common name.",
                 "- In Java, arrays are objects, and must be created dynamically (at runtime). " +
-                        "[[Which continent is known as the \"Roof of the World\"?:::Asia.]]\n",
+                        "[[Which continent is known as the \"Roof of the World\"?:::Asia.***Hard]]\n",
                 "- [[numberOfElements\n" +
                         " must be a posit\n" +
                         "ive Integer.]]");
-        List<String> content2 = new ArrayList<>();
-        content2.add("- [[Which country is known as the Land of Fire and Ice?:::Iceland.]]");
-        content2.add("- [[General Form:\n" + " arrayName;]]");
-        content2.add("- In Java, arrays are objects, and must be created dynamically (at runtime). ");
-        content2.add("- [[What is the official language of Japan?\n" + ":::The official language is Japanese.]]");
-
+        List<String> content2 = Arrays.asList("- [Which country is known as the Land of Fire and Ice?:::Iceland.]]",
+                "- [[General Form:\n" +
+                        " arrayName;]]",
+                "- In Java, arrays are objects, and must be created dynamically (at runtime). ",
+                "## Declaring an Array", "[[What is the official language of Japan?\n" +
+                        ":::The official language is Japanese.***Hard]]");
         Files.write(f1.toPath(), content1, StandardOpenOption.APPEND);
         Files.write(f2.toPath(), content2, StandardOpenOption.APPEND);
-        SrFileReader srread = new SrFileReader();
+        MdFileReader mdread = new MdFileReader();
         ArrayList<File> files = new ArrayList<>();
         files.add(f1);
         files.add(f2);
-        ArrayList<String> study = srread.convertFiles(files);
+        ArrayList<String> study = mdread.convertFiles(files);
 
         // check the first string of the list
-        Assertions.assertEquals(study.get(0), "- Which continent is known as the \"Roof of the World\"?:::Asia.");
-        Assertions.assertEquals(study.get(1), "- Which country is known as the Land of Fire and Ice?:::Iceland.");
-        Assertions.assertEquals(study.get(2), "- What is the official language of Japan?:::The official language is Japanese.");
+        Assertions.assertEquals(study.get(0), "- An **array** is a collection of variables of the same type");
+        Assertions.assertEquals(study.get(1), "- numberOfElements must be a positive Integer.");
+        Assertions.assertEquals(study.get(2), "- General Form: arrayName;");
+        Assertions.assertEquals(study.get(3), "## Declaring an Array");
+        // check edge case for finishline method, text belongs in .sr file, not .md
+        Assertions.assertNotEquals("What is the official language of Japan?" +
+                ":::The official language is Japanese.***Hard", study.get(3));
     }
+
     @Test
     public void testInvalidInput() {
         // Checking an invalid score produces the correct exception
-        SrFileReader sr= new SrFileReader();
+        MdFileReader md = new MdFileReader();
         ArrayList<File> files = new ArrayList<>();
         // Add a non-existent file to the list
         files.add(new File("nonexistentfile.txt"));
 
         assertThrows(RuntimeException.class,
-                () -> sr.convertFiles(files));
+                () -> md.convertFiles(files));
     }
 }
