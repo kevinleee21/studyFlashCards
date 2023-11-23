@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.io.File.createTempFile;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.internal.matchers.text.ValuePrinter.print;
 

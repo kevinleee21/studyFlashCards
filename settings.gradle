@@ -1,2 +1,4 @@
 rootProject.name = 'PA02'
+include 'src:main:module-info.java'
+findProject(':src:main:module-info.java')?.name = 'module-info.java'
 

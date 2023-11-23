@@ -34,9 +34,11 @@ public class FlashcardController implements Controller {
    */
   @Override
   public void run() throws IOException {
+    //get the filepath
     File desiredFile = readDesiredFile();
     ArrayList<String> sorted = randomize(desiredFile);
     sorted.sort(new QuestionSortComparator());
+    //get the number of questions
     int numberofQues = readNumberofQuestions(sorted);
     UpdatedSrFile updated = new UpdatedSrFile();
 

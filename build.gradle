@@ -2,7 +2,13 @@ plugins {
     id 'application'
     id 'jacoco'
     id 'checkstyle'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.beryx.jlink' version '2.25.0'
 }
+
+group = 'cs3500.javafx'
+
 
 checkstyle {
     toolVersion = '10.10.0'
@@ -11,6 +17,11 @@ checkstyle {
 
 application {
     mainClass = "cs3500.template.code.Main"
+}
+
+javafx {
+    version = '20.0.1'
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 //Jacoco for code coverage
@@ -24,19 +35,29 @@ test {
 //    dependsOn test // make sure that test task run before reports are run.
 //}
 
-group 'cs3500.project'
-version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testImplementation 'junit:junit:4.13.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // Jackson
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.1'
 
-    //https://github.com/webcompere/system-stubs
+     // JavaFX
+    implementation('org.controlsfx:controlsfx:11.1.2')
+
+    // JUnit
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    testImplementation 'junit:junit:4.12'
+
+     // TestFX
+    testImplementation 'org.testfx:testfx-core:4.0.16-alpha'
+    testImplementation 'org.testfx:testfx-junit5:4.0.16-alpha'
+    testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.13.2'
+
+    // https://github.com/webcompere/system-stubs
     testImplementation group: 'org.mockito', name: 'mockito-inline', version: '3.12.4'
     testImplementation group: 'uk.org.webcompere', name: 'system-stubs-jupiter', version: '2.0.2'
 }
